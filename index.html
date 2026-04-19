@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nellie Empire | Taste of Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--orange:#FF8C00;--cream:#FFFDF5;--gold:#D4AF37;--dark:#2D2D2D;--white:#fff;--shadow:0 4px 24px rgba(0,0,0,0.10)}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',sans-serif;background:var(--cream);color:var(--dark);line-height:1.6}
+
+nav{background:var(--white);padding:1rem 5%;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:1000;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+.logo{font-family:'Playfair Display',serif;color:var(--orange);font-size:1.7rem;letter-spacing:-0.5px}
+.logo span{color:var(--gold);font-size:0.9rem;display:block;font-family:'Poppins',sans-serif;font-weight:300;margin-top:-6px}
+.nav-links{list-style:none;display:flex;gap:2rem}
+.nav-links a{text-decoration:none;color:var(--dark);font-weight:600;font-size:0.9rem;transition:0.2s;padding:4px 0;border-bottom:2px solid transparent}
+.nav-links a:hover{color:var(--orange);border-bottom-color:var(--orange)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);transition:0.3s}
+
+.hero{height:88vh;background:linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.55)),url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#fff;padding:0 24px}
+.hero h1{font-family:'Playfair Display',serif;font-size:3.2rem;margin-bottom:0.8rem;text-shadow:0 2px 8px rgba(0,0,0,0.3);line-height:1.25}
+.hero-tag{font-size:1.2rem;margin-bottom:0.5rem;color:#FFE4B5;font-weight:300}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,0.8);margin-bottom:2.2rem;max-width:520px}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.cta-btn{background:var(--orange);color:#fff;padding:14px 36px;text-decoration:none;border-radius:50px;font-weight:600;font-size:0.95rem;transition:0.3s;border:2px solid var(--orange)}
+.cta-btn:hover{background:transparent;color:var(--gold);border-color:var(--gold)}
+.cta-btn.outline{background:transparent;border-color:#fff;color:#fff}
+.cta-btn.outline:hover{background:#fff;color:var(--dark);border-color:#fff}
+
+.badge-strip{background:var(--orange);padding:11px 5%;display:flex;justify-content:center;gap:36px;flex-wrap:wrap}
+.badge-strip span{color:#fff;font-size:0.82rem;font-weight:600;display:flex;align-items:center;gap:6px}
+
+.section-title{text-align:center;padding:56px 0 16px;font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--orange)}
+.section-sub{text-align:center;color:#888;font-size:0.95rem;margin-bottom:48px}
+
+.menu-container{padding:0 6%;margin-bottom:64px}
+.category-label{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;padding:8px 20px;margin-bottom:22px;border-radius:0 24px 24px 0;font-weight:600;font-size:0.9rem}
+.menu-card{background:var(--white);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:48px}
+.menu-card-inner{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.menu-tbl{width:100%;border-collapse:collapse;min-width:420px}
+table.menu-tbl thead tr{background:var(--orange)}
+table.menu-tbl th{color:#fff;padding:13px 18px;text-align:left;font-size:0.88rem;font-weight:600;letter-spacing:0.3px}
+table.menu-tbl td{padding:15px 18px;border-bottom:1px solid #F5EDD8;font-size:0.9rem;vertical-align:top}
+table.menu-tbl tr:last-child td{border-bottom:none}
+table.menu-tbl tr:hover td{background:#FFFBF0;transition:0.2s}
+.price{color:var(--gold);font-weight:700;white-space:nowrap;font-size:0.95rem}
+.dish-name{font-weight:600;color:var(--dark)}
+.dish-desc{color:#999;font-size:0.82rem;display:block;margin-top:2px}
+
+.specials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;padding:0 6%;margin-bottom:64px}
+.special-card{background:var(--white);border-radius:16px;padding:26px 22px;box-shadow:var(--shadow);text-align:center;border-top:4px solid var(--orange);transition:transform 0.3s,box-shadow 0.3s}
+.special-card:hover{transform:translateY(-5px);box-shadow:0 8px 32px rgba(0,0,0,0.13)}
+.special-card .icon{font-size:2.2rem;margin-bottom:12px;display:block}
+.special-card h4{font-family:'Playfair Display',serif;color:var(--dark);margin-bottom:7px;font-size:1.05rem}
+.special-card p{font-size:0.83rem;color:#777;line-height:1.6}
+.special-card .sprice{color:var(--orange);font-weight:700;font-size:1rem;margin-top:12px;display:block}
+
+.about-section{background:var(--white);padding:80px 10%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-text h2{font-family:'Playfair Display',serif;color:var(--orange);font-size:2rem;margin-bottom:16px}
+.about-text p{color:#555;line-height:1.85;margin-bottom:14px;font-size:0.95rem}
+.about-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.about-badge{background:#FFF3E0;color:var(--orange);padding:6px 16px;border-radius:20px;font-size:0.8rem;font-weight:600;border:1px solid #FFD9A0}
+.about-img{width:100%;height:400px;object-fit:cover;border-radius:20px;box-shadow:var(--shadow)}
+
+.location-section{background:#2D2D2D;color:#fff;padding:64px 6%;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.loc-info h3{color:var(--orange);font-size:1.3rem;margin-bottom:22px;font-family:'Playfair Display',serif}
+.loc-item{display:flex;gap:14px;margin-bottom:20px;align-items:flex-start}
+.loc-icon{width:38px;height:38px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;margin-top:2px}
+.loc-text{font-size:0.88rem;color:#ccc;line-height:1.6}
+.loc-text strong{color:#fff;display:block;margin-bottom:2px;font-size:0.92rem}
+.map-box{background:#3D3D3D;border-radius:16px;overflow:hidden;height:280px;border:1px solid #555;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
+.map-box p{color:#bbb;font-size:0.88rem;max-width:220px;line-height:1.5}
+.map-link{color:var(--orange);font-size:0.82rem;text-decoration:none;border:1px solid var(--orange);padding:9px 22px;border-radius:22px;display:inline-block;margin-top:8px;transition:0.2s}
+.map-link:hover{background:var(--orange);color:#fff}
+
+.contact-section{background:linear-gradient(135deg,#1a1a1a,#2D2D2D);color:#fff;padding:72px 6%;display:grid;grid-template-columns:1.2fr 1fr;gap:56px}
+.contact-section h2{font-family:'Playfair Display',serif;color:var(--orange);margin-bottom:8px;font-size:1.8rem}
+.contact-section .sub{color:#aaa;font-size:0.88rem;margin-bottom:26px}
+.wa-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;padding:15px 30px;border-radius:50px;text-decoration:none;font-weight:600;font-size:0.95rem;transition:0.3s;margin-bottom:26px}
+.wa-btn:hover{background:#1ebe5a;transform:scale(1.03)}
+.contact-detail{display:flex;align-items:center;gap:10px;margin-bottom:13px;font-size:0.88rem;color:#ccc}
+.catering-box{background:#3a3a3a;border-radius:16px;padding:30px;border:1px solid #555}
+.catering-box h3{color:var(--gold);font-family:'Playfair Display',serif;margin-bottom:14px;font-size:1.2rem}
+.catering-box p{color:#aaa;font-size:0.87rem;line-height:1.75;margin-bottom:10px}
+.catering-items{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.catering-item{background:#4a4a4a;color:#ddd;padding:5px 14px;border-radius:20px;font-size:0.78rem;border:1px solid #666}
+.catering-cta{display:inline-block;margin-top:22px;background:var(--gold);color:#fff;padding:12px 26px;border-radius:30px;text-decoration:none;font-weight:600;font-size:0.88rem;transition:0.3s}
+.catering-cta:hover{background:#c49f2a}
+
+footer{background:#111;color:#888;text-align:center;padding:26px 20px;font-size:0.82rem;line-height:1.8}
+footer a{color:var(--orange);text-decoration:none}
+footer span{color:var(--gold)}
+
+.mobile-menu{display:none;position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(0,0,0,0.97);z-index:2000;flex-direction:column;justify-content:center;align-items:center;gap:32px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{color:#fff;text-decoration:none;font-size:1.4rem;font-weight:600;transition:0.2s;letter-spacing:0.5px}
+.mobile-menu a:hover{color:var(--orange)}
+.mobile-close{position:absolute;top:24px;right:28px;background:none;border:none;cursor:pointer;font-size:2rem;color:#fff;line-height:1}
+
+@media(max-width:960px){
+  .about-section,.contact-section,.location-section{grid-template-columns:1fr;gap:36px}
+  .hero h1{font-size:2.4rem}
+  .about-img{height:280px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero{height:92vh;padding:0 16px}
+  .hero h1{font-size:1.9rem}
+  .hero-tag{font-size:1rem}
+  .badge-strip{gap:18px;padding:10px 5%}
+  .section-title{font-size:1.7rem;padding-top:44px}
+  .menu-container,.specials-grid{padding:0 4%}
+  .about-section{padding:56px 6%}
+  .contact-section,.location-section{padding:56px 5%}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAVIGATION ===== -->
+<nav>
+  <div>
+    <div class="logo">Nellie Empire
+      <span>Taste of Home · Gwarimpa, Abuja</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#specials">Specials</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#location">Location</a></li>
+    <li><a href="#contact">Order Now</a></li>
+  </ul>
+  <button class="hamburger" id="hbg" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mob" role="dialog" aria-label="Navigation menu">
+  <button class="mobile-close" onclick="toggleMenu()" aria-label="Close menu">&#x2715;</button>
+  <a href="#home"     onclick="toggleMenu()">Home</a>
+  <a href="#menu"     onclick="toggleMenu()">Menu</a>
+  <a href="#specials" onclick="toggleMenu()">Specials</a>
+  <a href="#about"    onclick="toggleMenu()">About</a>
+  <a href="#location" onclick="toggleMenu()">Location</a>
+  <a href="#contact"  onclick="toggleMenu()">Order Now</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+  <h1>Homemade Delicacy<br>Crafted with Love</h1>
+  <p class="hero-tag">Nellie Empire / Confectionery</p>
+  <p class="hero-sub">Authentic Nigerian flavours, fresh ingredients &amp; professional touch — delivered in Abuja</p>
+  <div class="hero-btns">
+    <a href="#contact" class="cta-btn">Order Now</a>
+    <a href="#menu"    class="cta-btn outline">View Menu</a>
+  </div>
+</section>
+
+<!-- Badge strip -->
+<div class="badge-strip">
+  <span>&#127834; Rice Platters</span>
+  <span>&#127842; Signature Soups</span>
+  <span>&#127837; Pasta &amp; Noodles</span>
+  <span>&#127874; Cakes &amp; Confectionery</span>
+  <span>&#127881; Catering Available</span>
+</div>
+
+<!-- ===== MENU ===== -->
+<h2 class="section-title" id="menu">Our Delicacies</h2>
+<p class="section-sub">Every dish made fresh — no shortcuts, only authentic flavours</p>
+
+<div class="menu-container">
+
+  <div class="category-label">&#127834; Rice Platters</div>
+  <div class="menu-card">
+    <div class="menu-card-inner">
+      <table class="menu-tbl">
+        <thead><tr><th style="width:28%">Dish</th><th>Description</th><th style="width:14%">Price</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="dish-name">Jollof Rice</span><span class="dish-desc">Party-style smoky Nigerian Jollof</span></td>
+            <td>Cooked over open fire for that authentic smoky aroma, served with fried plantain</td>
+            <td class="price">&#8358;3,500</td>
+          </tr>
+          <tr>
+            <td><span class="dish-name">Fried Rice</span><span class="dish-desc">Rich veggies with liver &amp; shrimp</span></td>
+            <td>Colourful medley of fresh vegetables, liver chunks, shrimp, and aromatic spices</td>
+            <td class="price">&#8358;3,800</td>
+          </tr>
+          <tr>
+            <td><span class="dish-name">Coconut Rice</span><span class="dish-desc">Slow-cooked in fresh coconut milk</span></td>
+            <td>Creamy and fragrant with real coconut milk, paired with assorted protein of choice</td>
+            <td class="price">&#8358;4,000</td>
+          </tr>
+          <tr>
+            <td><span class="dish-name">Native Rice</span><span class="dish-desc">Village-style with palm oil &amp; smoked fish</span></td>
+            <td>Traditional ofada-style rice with palm oil stew and smoky dried fish</td>
+            <td class="price">&#8358;3,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="category-label">&#127842; Signature Soups</div>
+  <div class="menu-card">
+    <div class="menu-card-inner">
+      <table class="menu-tbl">
+        <thead><tr><th style="width:28%">Dish</th><th>Description</th><th style="width:14%">Price</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="dish-name">Turkey Peppersoup</span><span class="dish-desc">Spicy &amp; aromatic</span></td>
+            <td>Tender turkey in a deeply spiced broth with scent leaves and peppersoup spice blend</td>
+            <td class="price">&#8358;5,000</td>
+          </tr>
+          <tr>
+            <td><span class="dish-name">Catfish Peppersoup</span><span class="dish-desc">Point &amp; Kill fresh catfish</span></td>
+            <td>Live catfish freshly prepared in rich peppersoup broth — authentic riverside style</td>
+            <td class="price">&#8358;6,500</td>
+          </tr>
+          <tr>
+            <td><span class="dish-name">Goat Meat Peppersoup</span><span class="dish-desc">Slow-cooked tender chunks</span></td>
+            <td>Fall-off-the-bone goat meat in a warming, aromatic peppersoup base</td>
+            <td class="price">&#8358;5,500</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="category-label">&#127837; Pasta &amp; Noodles</div>
+  <div class="menu-card">
+    <div class="menu-card-inner">
+      <table class="menu-tbl">
+        <thead><tr><th style="width:28%">Dish</th><th>Description</th><th style="width:14%">Price</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="dish-name">Creamy Pasta</span><span class="dish-desc">White sauce, shrimp &amp; mushrooms</span></td>
+            <td>Velvety white sauce with plump shrimp, baby mushrooms, and fresh herbs</td>
+            <td class="price">&#8358;4,500</td>
+          </tr>
+          <tr>
+            <td><span class="dish-name">Asun Pasta</span><span class="dish-desc">Spicy grilled goat meat</span></td>
+            <td>Nigerian favourite — chargrilled peppered goat meat tossed through al dente pasta</td>
+            <td class="price">&#8358;4,000</td>
+          </tr>
+          <tr>
+            <td><span class="dish-name">Stir-fried Pasta</span><span class="dish-desc">Veggies and turkey chunks</span></td>
+            <td>Quick wok-style pasta with seasonal vegetables, turkey, and Nigerian spices</td>
+            <td class="price">&#8358;3,800</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- ===== SPECIALS ===== -->
+<h2 class="section-title" id="specials">Also Available</h2>
+<p class="section-sub">More delicacies to make any occasion special</p>
+<div class="specials-grid">
+  <div class="special-card">
+    <span class="icon">&#127874;</span>
+    <h4>Celebration Cakes</h4>
+    <p>Custom birthday, wedding &amp; anniversary cakes baked fresh to your order</p>
+    <span class="sprice">From &#8358;15,000</span>
+  </div>
+  <div class="special-card">
+    <span class="icon">&#129361;</span>
+    <h4>Small Chops</h4>
+    <p>Puff puff, samosa, spring rolls, peppered gizzard &amp; more for events</p>
+    <span class="sprice">Trays from &#8358;8,000</span>
+  </div>
+  <div class="special-card">
+    <span class="icon">&#127831;</span>
+    <h4>Peppered Proteins</h4>
+    <p>Grilled chicken, asun, peppered snail, and assorted meat platters</p>
+    <span class="sprice">From &#8358;4,500</span>
+  </div>
+  <div class="special-card">
+    <span class="icon">&#127881;</span>
+    <h4>Event Catering</h4>
+    <p>Full-service catering for birthdays, burials, corporate events &amp; more</p>
+    <span class="sprice">Get a quote</span>
+  </div>
+</div>
+
+<!-- ===== ABOUT ===== -->
+<section class="about-section" id="about">
+  <div class="about-text">
+    <h2>Our Story</h2>
+    <p>At Nellie Empire, food is more than nourishment — it is a bridge to the heart. Rooted in rich Nigerian heritage, our kitchen brings you the authentic Taste of Home in every plate.</p>
+    <p>Every meal is prepared with fresh, locally sourced ingredients, traditional spices, and a professional touch that ensures every bite is a celebration of flavour. From your daily comfort meal to your grandest celebration, we show up — consistently and deliciously.</p>
+    <p>Based in the heart of Gwarimpa, Abuja, we serve individuals, families, and corporates who deserve nothing but the best.</p>
+    <div class="about-badges">
+      <span class="about-badge">Fresh Daily</span>
+      <span class="about-badge">No Preservatives</span>
+      <span class="about-badge">Authentic Recipes</span>
+      <span class="about-badge">Event Ready</span>
+      <span class="about-badge">Gwarimpa, Abuja</span>
+    </div>
+  </div>
+  <img class="about-img"
+       src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&q=80&w=800"
+       alt="Delicious homemade Nigerian food by Nellie Empire" />
+</section>
+
+<!-- ===== LOCATION ===== -->
+<section class="location-section" id="location">
+  <div class="loc-info">
+    <h3>Find Us</h3>
+    <div class="loc-item">
+      <div class="loc-icon">&#128205;</div>
+      <div class="loc-text">
+        <strong>Address</strong>
+        Gwarimpa Estate, Abuja, FCT, Nigeria
+      </div>
+    </div>
+    <div class="loc-item">
+      <div class="loc-icon">&#128222;</div>
+      <div class="loc-text">
+        <strong>Phone / WhatsApp</strong>
+        0912 698 2972
+      </div>
+    </div>
+    <div class="loc-item">
+      <div class="loc-icon">&#128140;</div>
+      <div class="loc-text">
+        <strong>Email</strong>
+        orders@nellieempire.com
+      </div>
+    </div>
+    <div class="loc-item">
+      <div class="loc-icon">&#128336;</div>
+      <div class="loc-text">
+        <strong>Opening Hours</strong>
+        Monday – Saturday: 8:00am – 8:00pm<br>
+        Sunday: 10:00am – 6:00pm
+      </div>
+    </div>
+    <div class="loc-item">
+      <div class="loc-icon">&#128666;</div>
+      <div class="loc-text">
+        <strong>Delivery</strong>
+        Available within Abuja. Contact us for delivery fee based on your location.
+      </div>
+    </div>
+  </div>
+  <div class="map-box">
+    <div style="font-size:3rem">&#128506;</div>
+    <p>Gwarimpa Estate, Abuja, FCT, Nigeria</p>
+    <a class="map-link"
+       href="https://maps.google.com/?q=Gwarimpa+Estate+Abuja+Nigeria"
+       target="_blank"
+       rel="noopener noreferrer">
+      Open in Google Maps &#8594;
+    </a>
+  </div>
+</section>
+
+<!-- ===== CONTACT / ORDER ===== -->
+<section class="contact-section" id="contact">
+  <div>
+    <h2>Ready to Order?</h2>
+    <p class="sub">Chat with us directly on WhatsApp — we respond fast!</p>
+    <a class="wa-btn"
+       href="https://wa.me/2349126982972?text=Hello%20Nellie%20Empire!%20I%20would%20like%20to%20place%20an%20order%20%F0%9F%8D%BD%EF%B8%8F"
+       target="_blank"
+       rel="noopener noreferrer">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      Chat on WhatsApp
+    </a>
+    <div class="contact-detail">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.36 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.25 1.3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 9.31a16 16 0 006.06 6.06l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      +234 912 698 2972
+    </div>
+    <div class="contact-detail">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      orders@nellieempire.com
+    </div>
+    <div class="contact-detail">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      Gwarimpa Estate, Abuja, FCT, Nigeria
+    </div>
+  </div>
+
+  <div class="catering-box">
+    <h3>&#127881; Catering &amp; Events</h3>
+    <p>Planning a birthday, wedding, or corporate event? We handle everything from small chops to full buffet service.</p>
+    <p>Minimum notice: <strong style="color:#ddd">24–48 hours</strong> for regular orders.<br>
+    For large events, please book <strong style="color:#ddd">5–7 days ahead</strong>.</p>
+    <div class="catering-items">
+      <span class="catering-item">Small Chops</span>
+      <span class="catering-item">Jollof Buffet</span>
+      <span class="catering-item">Custom Cakes</span>
+      <span class="catering-item">Peppersoup Station</span>
+      <span class="catering-item">Drinks &amp; Cocktails</span>
+      <span class="catering-item">Event Decoration</span>
+    </div>
+    <a class="catering-cta"
+       href="https://wa.me/2349126982972?text=Hi!%20I%20need%20catering%20services%20for%20an%20event%20%F0%9F%8E%89"
+       target="_blank"
+       rel="noopener noreferrer">
+      Request Catering Quote &#8594;
+    </a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>
+    &copy; 2026 <span>Nellie Empire</span> / Confectionery. All Rights Reserved.<br>
+    Gwarimpa Estate, Abuja, FCT, Nigeria &nbsp;|&nbsp;
+    <a href="tel:+2349126982972">+234 912 698 2972</a> &nbsp;|&nbsp;
+    <a href="https://wa.me/2349126982972?text=Hello%20Nellie%20Empire!" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+  </p>
+</footer>
+
+<!-- ===== SCRIPTS ===== -->
+<script>
+  function toggleMenu() {
+    var m = document.getElementById('mob');
+    m.classList.toggle('open');
+    document.body.style.overflow = m.classList.contains('open') ? 'hidden' : '';
+  }
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.getElementById(this.getAttribute('href').slice(1));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      var m = document.getElementById('mob');
+      if (m.classList.contains('open')) toggleMenu();
+    }
+  });
+</script>
+</body>
+</html>
